@@ -19,6 +19,12 @@ export class DogsController {
     return this.dogService.getAll();
   }
 
+  @Post('/Filtro')
+  getAllFilter(@Body() body) {
+    console.log(body);
+    return this.dogService.getAllFilter(body);
+  }
+
   @Get(':id')
   getById(@Param('id', ParseIntPipe) id) {
     return this.dogService.getById(id);

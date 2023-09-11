@@ -1,4 +1,4 @@
-import { ChangeEvent, FunctionComponent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FunctionComponent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Dogs } from "../models/dogs.models";
 import { Raza } from "../models/raza.models";

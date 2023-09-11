@@ -1,5 +1,9 @@
 import { AxiosClientPlugin } from "../../plugins/http-client.plugin";
 
+export class DogsFiltros {
+    nombre?: string;
+}
+
 export class Dogs {
 
     id: number;
@@ -19,6 +23,12 @@ export class Dogs {
     static getAll = async () => {
 
         return await AxiosClientPlugin.get('http://localhost:3000/api/dogs');
+
+    }
+
+    static getAllFilter = async (data: DogsFiltros) => {
+
+        return await AxiosClientPlugin.post('http://localhost:3000/api/dogs/Filtro', data);
 
     }
 

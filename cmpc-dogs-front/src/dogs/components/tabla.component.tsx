@@ -1,13 +1,16 @@
-import { FunctionComponent, useEffect, useState } from "react";
-import { Dogs } from "../models/dogs.models"
+import { ChangeEvent, FunctionComponent, useEffect, useState } from "react";
+import { Dogs, DogsFiltros } from "../models/dogs.models"
 import { useNavigate } from "react-router-dom";
 
 interface Props {
 
 }
 
+
+
 const Tabla: FunctionComponent<Props> = () => {
     const [data, SetData] = useState<Dogs[]>();
+    const [filtros, setFiltros] = useState<DogsFiltros>();
 
     useEffect(() => {
         Dogs.getAll().then((d) => {
@@ -21,6 +24,24 @@ const Tabla: FunctionComponent<Props> = () => {
         })
     }
 
+    const getAllFilter = () => {
+        Dogs.getAllFilter(filtros).then((d) => {
+            SetData(d);
+        })
+    }
+
+    const OnClickBuscar = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+
+        if (filtros?.nombre === "") {
+            getAll();
+        }
+        else {
+            getAllFilter();
+        }
+
+    }
+
     const deleteOne = (id: number) => {
         Dogs.deleteOne(id).then(() => {
             getAll();
@@ -28,6 +49,18 @@ const Tabla: FunctionComponent<Props> = () => {
     }
 
     const navegar = useNavigate();
+
+    const OnNombreChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const temp: DogsFiltros = (filtros) ? filtros : {nombre: ""};
+
+        temp.nombre = event.target.value.toString();
+
+        setFiltros(filtros => ({
+            ...filtros,
+            ...temp
+        }));
+
+    }
 
 
     if (!data) return (
@@ -45,12 +78,19 @@ const Tabla: FunctionComponent<Props> = () => {
         <>
             <div className="row">
                 <div className="col-3">
-                    <button className="btn btn-success" onClick={() => navegar('/Form')}>Crear</button>
+                    <button className="btn btn-success me-3" onClick={() => navegar('/Form')}>Crear</button>
+                    <button className="btn btn-primary me-3" onClick={OnClickBuscar}>Buscar</button>
                 </div>
-                <div className="col-3">
-                    <button className="btn btn-primary" onClick={getAll}>Buscar</button>
+            </div>
+            <div className="row mt-3">
+                <div className="col-6">
+                    <input
+                        className="form-control"
+                        type="text"
+                        placeholder="Ingrese Nombre"
+                        onChange={OnNombreChange}
+                    />
                 </div>
-
             </div>
             <div className="row mt-5">
                 <div className="col-12">

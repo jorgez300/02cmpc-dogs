@@ -12,12 +12,13 @@ export const fetchApiClientPlugin = {
 
 export const AxiosClientPlugin = {
 
-    get: async (url: string) => {
+    get: async (url: string, data?: object) => {
 
         const config = {
             url: url,
             method: 'GET',
-            mode: 'no-cors'
+            mode: 'no-cors',
+            data: data
         };
 
         const resp = await axios(config)
