@@ -3,7 +3,7 @@ import { Dogs } from 'src/dogs/model/dogs.model';
 
 export const db = new Sequelize('pgcmpcdogs', 'su', 'password', {
   host: 'localhost',
-  port: 39000,
+  port: 39001,
   dialect: 'postgres',
   models: [Dogs],
 });

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Dogs } from './model/dogs.model';
 
 @Injectable()
@@ -7,8 +7,8 @@ export class DogsService {
     const data: Dogs[] = await Dogs.findAll({
       order: [['id', 'ASC']],
     });
-    if (data.length === 0)
-      throw new NotFoundException('no se encontraron perros');
+    if (data.length === 0) return [];
+    //throw new NotFoundException('no se encontraron perros');
 
     return data;
   };
@@ -19,8 +19,8 @@ export class DogsService {
         id: id,
       },
     });
-    if (data.length === 0)
-      throw new NotFoundException('no se encontraron perros');
+    if (data.length === 0) return [];
+    //throw new NotFoundException('no se encontraron perros');
 
     return data;
   };

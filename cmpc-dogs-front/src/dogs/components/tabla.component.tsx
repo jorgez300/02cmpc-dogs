@@ -30,7 +30,16 @@ const Tabla: FunctionComponent<Props> = () => {
     const navegar = useNavigate();
 
 
-    if (!data) return null;
+    if (!data) return (
+        <>
+            <div className="row">
+                <div className="col-3">
+                    <button className="btn btn-success" onClick={() => navegar('/Form')}>Crear</button>
+                </div>
+
+            </div>
+        </>
+    );
 
     return (
         <>
@@ -57,7 +66,7 @@ const Tabla: FunctionComponent<Props> = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {data.map((item) => <tr key={'tr' + item.id}><td>{item.id}</td><td>{item.nombre}</td><td>{item.raza}</td><td>{item.Subraza}</td><td><button key={'BtnEliminar' + item.id} className="btn btn-warning" onClick={() => navegar('/Form/'+item.id)}>Editar</button></td><td><button key={'BtnEliminar' + item.id} className="btn btn-danger" onClick={() => deleteOne(item.id)}>Eliminar</button></td></tr>)}
+                            {data.map((item) => <tr key={'tr' + item.id}><td>{item.id}</td><td>{item.nombre}</td><td>{item.raza}</td><td>{item.Subraza}</td><td><button key={'BtnEliminar' + item.id} className="btn btn-warning" onClick={() => navegar('/Form/' + item.id)}>Editar</button></td><td><button key={'BtnEliminar' + item.id} className="btn btn-danger" onClick={() => deleteOne(item.id)}>Eliminar</button></td></tr>)}
                         </tbody>
                     </table>
                 </div>
